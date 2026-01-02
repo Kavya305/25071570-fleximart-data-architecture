@@ -18,7 +18,7 @@ sales = pd.read_csv("data/sales_raw.csv")
 
 # Customers
 customers.drop_duplicates(inplace=True)
-# customers.dropna(subset=["email"], inplace=True)
+customers.dropna(subset=["email"], inplace=True)
 
 # customers["phone"] = customers["phone"].str.replace(r"\D", "", regex=True)
 # customers["phone"] = "+91-" + customers["phone"]
