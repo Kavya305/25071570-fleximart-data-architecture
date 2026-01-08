@@ -9,7 +9,10 @@
 
 ## Project Overview
 
-[2-3 sentences describing what you built]
+This project involved building an end-to-end data architecture for an e-commerce platform called FlexiMart.
+It included designing an ETL pipeline to load transactional data into a relational database, implementing a
+NoSQL product catalog using MongoDB, and creating a data warehouse with a star schema for analytical reporting.
+
 
 ## Repository Structure
 ├── part1-database-etl/
@@ -61,10 +64,18 @@ mongosh < part2-nosql/mongodb_operations.js
 
 ## Key Learnings
 
-[3-4 sentences on what you learned]
+This project helped me understand how different data architectures serve different business needs.
+I learned how to design and implement an ETL pipeline for structured data, use MongoDB for flexible
+product catalogs, and design a star schema for analytical reporting. I also gained practical
+experience writing OLAP queries for business decision-making.
 
 ## Challenges Faced
 
-1. [Challenge and solution]
-2. [Challenge and solution]
+1. One major challenge was handling inconsistent and messy data during the ETL process.
+   This was resolved by applying data cleaning techniques such as removing duplicates,
+   standardizing date formats, and validating foreign key relationships.
+
+2. Another challenge was designing the data warehouse to meet analytical requirements while
+   maintaining data correctness. This was addressed by carefully defining the grain of the
+   fact table and using dimension tables with surrogate keys.
 
