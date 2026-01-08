@@ -1,5 +1,7 @@
 // Use database
+// MongoDB Shell command
 use fleximart_nosql;
+
 
 // Operation 1: Load Data
 // Import products_catalog.json into products collection
