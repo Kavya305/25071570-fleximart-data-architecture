@@ -1,49 +1,36 @@
-// Use database
-// MongoDB Shell command
+// Operation 1: Load Data
+// Import the provided JSON file into collection 'products'
 use fleximart_nosql;
 
-
-// Operation 1: Load Data
-// Import products_catalog.json into products collection
-db.products.insertMany([
-  {
-    product_id: "ELEC001",
-    name: "Samsung Galaxy S21",
-    category: "Electronics",
-    price: 79999,
-    stock: 150,
-    specs: { ram: "8GB", storage: "128GB" },
-    reviews: [
-      { user: "U001", rating: 5, comment: "Great!", date: new Date("2024-01-15") }
-    ]
-  }
-]);
-
+db.products.insertMany(require("./products_catalog.json"));
 
 // Operation 2: Basic Query
-// Find Electronics products with price < 50000
+// Find all products in "Electronics" category with price less than 50000
+// Return only: name, price, stock
+
 db.products.find(
   { category: "Electronics", price: { $lt: 50000 } },
-  { name: 1, price: 1, stock: 1, _id: 0 }
+  { _id: 0, name: 1, price: 1, stock: 1 }
 );
 
-
 // Operation 3: Review Analysis
-// Find products with average rating >= 4
+// Find all products that have average rating >= 4.0
+// Use aggregation to calculate average from reviews array
+
 db.products.aggregate([
   { $unwind: "$reviews" },
   {
     $group: {
       _id: "$name",
-      avgRating: { $avg: "$reviews.rating" }
+      avg_rating: { $avg: "$reviews.rating" }
     }
   },
-  { $match: { avgRating: { $gte: 4 } } }
+  { $match: { avg_rating: { $gte: 4.0 } } }
 ]);
 
-
 // Operation 4: Update Operation
-// Add a new review to product ELEC001
+// Add a new review to product "ELEC001"
+
 db.products.updateOne(
   { product_id: "ELEC001" },
   {
@@ -58,9 +45,11 @@ db.products.updateOne(
   }
 );
 
-
 // Operation 5: Complex Aggregation
-// Average price by category
+// Calculate average price by category
+// Return: category, avg_price, product_count
+// Sort by avg_price descending
+
 db.products.aggregate([
   {
     $group: {
@@ -71,4 +60,3 @@ db.products.aggregate([
   },
   { $sort: { avg_price: -1 } }
 ]);
-
